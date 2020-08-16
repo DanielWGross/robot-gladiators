@@ -1,5 +1,5 @@
 const playerName = window.prompt("What is your robot's name?");
-let playerHealth = 100;
+let playerHealth = 20;
 let playerAttack = 10;
 let playerMoney = 10;
 
@@ -44,7 +44,13 @@ const fight = enemyRobot => {
     }
 };
 
-enemyNames.forEach(enemy => {
-    enemyHealth = 50;
-    fight(enemy);
-})
+for (let index = 0; index < enemyNames.length; index++) {
+    if (playerHealth > 0) {
+        window.alert(`Welcome to Robot Gladiators! Round ${index + 1}`);
+        enemyHealth = 50;
+        fight(enemyNames[index]);
+    } else {
+        window.alert("You have lost your robot in battle! Game Over!");
+        break;
+    }
+}
