@@ -3,26 +3,25 @@ let playerHealth = 100;
 let playerAttack = 10;
 let playerMoney = 10;
 
-console.log(playerName, playerAttack, playerHealth);
 
 const enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 let enemyHealth = 50;
 let enemyAttack = 12;
 
-const fight = () => {
+const fight = enemyRobot => {
 
     window.alert("Welcome to Robot Gladiators!");
 
     const promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
     if (promptFight.toLocaleLowerCase() === "fight") {
         enemyHealth = enemyHealth - playerAttack;
-        console.log(`${playerName} attacked ${enemyName}. ${enemyName} now has ${enemyHealth} health remaining.`);
+        console.log(`${playerName} attacked ${enemyRobot}. ${enemyRobot} now has ${enemyHealth} health remaining.`);
         enemyHealth <= 0 ?
-            window.alert(`${enemyName} has died!`) :
-            window.alert(`${enemyName} still has ${enemyHealth} health left!`);
+            window.alert(`${enemyRobot} has died!`) :
+            window.alert(`${enemyRobot} still has ${enemyHealth} health left!`);
 
         playerHealth = playerHealth - enemyAttack;
-        console.log(`${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} health remaining.`);
+        console.log(`${enemyRobot} attacked ${playerName}. ${playerName} now has ${playerHealth} health remaining.`);
         playerHealth <= 0 ?
             window.alert(`${playerName} has died!`) :
             window.alert(`${playerName} still has ${playerHealth} health left!`);
@@ -40,4 +39,4 @@ const fight = () => {
     }
 };
 
-// fight();
+enemyNames.forEach(enemy => fight(enemy))
