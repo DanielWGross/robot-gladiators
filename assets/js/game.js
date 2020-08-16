@@ -9,34 +9,42 @@ let enemyHealth = 50;
 let enemyAttack = 12;
 
 const fight = enemyRobot => {
+    while (enemyHealth > 0 && playerHealth > 0) {
+        const promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
-    window.alert("Welcome to Robot Gladiators!");
+        if (promptFight.toLocaleLowerCase() === "skip") {
+            const confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
-    const promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-    if (promptFight.toLocaleLowerCase() === "fight") {
+            if (confirmSkip) {
+                window.alert(`${playerName} has decided to skip this fight. Goodbye!`);
+                playerMoney = playerMoney - 10;
+                break;
+            } else {
+                fight();
+            }
+        }
+
         enemyHealth = enemyHealth - playerAttack;
         console.log(`${playerName} attacked ${enemyRobot}. ${enemyRobot} now has ${enemyHealth} health remaining.`);
-        enemyHealth <= 0 ?
-            window.alert(`${enemyRobot} has died!`) :
-            window.alert(`${enemyRobot} still has ${enemyHealth} health left!`);
+        if (enemyHealth <= 0) {
+            window.alert(`${enemyRobot} has died!`);
+            playerMoney = playerMoney + 20;
+            break;
+        }
+        window.alert(`${enemyRobot} still has ${enemyHealth} health left!`);
 
         playerHealth = playerHealth - enemyAttack;
         console.log(`${enemyRobot} attacked ${playerName}. ${playerName} now has ${playerHealth} health remaining.`);
-        playerHealth <= 0 ?
-            window.alert(`${playerName} has died!`) :
-            window.alert(`${playerName} still has ${playerHealth} health left!`);
-    } else if (promptFight.toLocaleLowerCase() === "skip") {
-        const confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-        if (confirmSkip) {
-            window.alert(`${playerName} has decided to skip this fight. Goodbye!`);
-            playerMoney = playerMoney - 2;
-        } else {
-            fight();
+        if (playerHealth <= 0) {
+            window.alert(`${playerName} has died!`)
+            break;
         }
-    } else {
-        window.alert("You need to pick a valid option. Try again!");
+        window.alert(`${playerName} still has ${playerHealth} health left!`);
+
     }
 };
 
-enemyNames.forEach(enemy => fight(enemy))
+enemyNames.forEach(enemy => {
+    enemyHealth = 50;
+    fight(enemy);
+})
