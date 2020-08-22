@@ -7,6 +7,11 @@ const enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 let enemyHealth = 50;
 let enemyAttack = 12;
 
+// function to generate a random numeric value
+const randomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 const fight = (enemyRobot) => {
   while (enemyHealth > 0 && playerHealth > 0) {
     const promptFight = window.prompt(
@@ -18,14 +23,17 @@ const fight = (enemyRobot) => {
 
       if (confirmSkip) {
         window.alert(`${playerName} has decided to skip this fight. Goodbye!`);
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         break;
       } else {
         fight();
       }
     }
 
-    enemyHealth = enemyHealth - playerAttack;
+    // generate random damage value based on player's attack power
+    const damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(
       `${playerName} attacked ${enemyRobot}. ${enemyRobot} now has ${enemyHealth} health remaining.`
     );
@@ -36,7 +44,9 @@ const fight = (enemyRobot) => {
     }
     window.alert(`${enemyRobot} still has ${enemyHealth} health left!`);
 
-    playerHealth = playerHealth - enemyAttack;
+    const damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(
       `${enemyRobot} attacked ${playerName}. ${playerName} now has ${playerHealth} health remaining.`
     );
@@ -125,7 +135,7 @@ const startGame = () => {
   for (let index = 0; index < enemyNames.length; index++) {
     if (playerHealth > 0) {
       window.alert(`Welcome to Robot Gladiators! Round ${index + 1}`);
-      enemyHealth = 50;
+      enemyHealth = randomNumber(40, 60);
       if (playerHealth > 0 && index < enemyNames.length - 1) {
         // ask if user wants to use the store before next round
         const storeConfirm = window.confirm(
