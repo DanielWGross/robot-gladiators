@@ -3,8 +3,23 @@ const randomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+// function to set name
+const getPlayerName = () => {
+  let name = "";
+
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+  // ***************************************
+  // ADD LOOP HERE WITH PROMPT AND CONDITION
+  // ***************************************
+
+  console.log(`Your robot's name is ${name}`);
+  return name;
+};
+
 const playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 10,
   money: 10,
